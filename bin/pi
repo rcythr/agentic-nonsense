@@ -1,0 +1,12 @@
+#!/bin/bash
+docker run -it --rm \
+    --user node \
+    -v $(pwd):/workspace \
+    -v $HOME/.pi:/home/$(whoami)/.pi \
+    -w /workspace \
+    --add-host host.docker.internal:host-gateway \
+    -e OPENAI_API_BASE=http://host.docker.internal:8080/v1 \
+    -e OPENAI_API_KEY=none \
+    -e HOME=/home/$(whoami) \
+    --entrypoint "pi" \
+    agent "$@"
